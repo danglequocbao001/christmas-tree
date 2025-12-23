@@ -152,7 +152,7 @@ export default function App() {
       {isLoadingShare && (
         <div className="absolute inset-0 z-50 flex items-center justify-center bg-black/80">
           <div className="text-[#D4AF37] font-serif text-xl">
-            加载分享的照片中...
+            Đang tải ảnh được chia sẻ...
           </div>
         </div>
       )}
