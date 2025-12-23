@@ -66,7 +66,7 @@ export const UIOverlay: React.FC<UIOverlayProps> = ({ mode, onToggle, onPhotosUp
 
   const handleShare = async () => {
     if (!uploadedPhotos || uploadedPhotos.length === 0) {
-      setShareError('请先上传照片');
+      setShareError('Vui lòng tải ảnh của bạn lên trước.');
       return;
     }
 
@@ -122,7 +122,7 @@ export const UIOverlay: React.FC<UIOverlayProps> = ({ mode, onToggle, onPhotosUp
       const { shareId, uploadUrls } = urlsData;
 
       // Step 2: Upload images directly to R2 using presigned URLs
-      setUploadProgress(`上传照片中 (0/${uploadedPhotos.length})...`);
+      setUploadProgress(`Đang tải ảnh lên (0/${uploadedPhotos.length})...`);
       
       let uploadedCount = 0;
       const uploadPromises = uploadedPhotos.map(async (photo, index) => {
@@ -138,11 +138,11 @@ export const UIOverlay: React.FC<UIOverlayProps> = ({ mode, onToggle, onPhotosUp
         });
 
         if (!uploadResponse.ok) {
-          throw new Error(`上传第 ${index + 1} 张图片失败`);
+          throw new Error(`上传第 ${index + 1} Hình ảnh không tải được.`);
         }
 
         uploadedCount++;
-        setUploadProgress(`上传照片中 (${uploadedCount}/${uploadedPhotos.length})...`);
+        setUploadProgress(`Đang tải ảnh lên (${uploadedCount}/${uploadedPhotos.length})...`);
         return publicUrl;
       });
 
@@ -164,7 +164,7 @@ export const UIOverlay: React.FC<UIOverlayProps> = ({ mode, onToggle, onPhotosUp
       const completeData = await completeResponse.json();
 
       if (!completeResponse.ok) {
-        throw new Error(completeData.error || '保存分享信息失败');
+        throw new Error(completeData.error || 'Không thể lưu thông tin được chia sẻ.');
       }
 
       setShareLink(completeData.shareLink);
@@ -187,12 +187,12 @@ export const UIOverlay: React.FC<UIOverlayProps> = ({ mode, onToggle, onPhotosUp
           setShareLink(shareLink);
           return;
         } catch (storageError: any) {
-          setShareError('图片数据太大，请减少照片数量或大小');
+          setShareError('Dữ liệu hình ảnh quá lớn; vui lòng giảm số lượng hoặc kích thước ảnh.');
           return;
         }
       }
       
-      setShareError(error.message || '分享失败，请重试');
+      setShareError(error.message || 'Chia sẻ không thành công, vui lòng thử lại.');
     } finally {
       setIsSharing(false);
       setUploadProgress('');
@@ -261,7 +261,7 @@ export const UIOverlay: React.FC<UIOverlayProps> = ({ mode, onToggle, onPhotosUp
                 className="group px-6 py-3 border-2 border-[#D4AF37] bg-black/70 backdrop-blur-md overflow-hidden transition-all duration-500 hover:shadow-[0_0_30px_#D4AF37] hover:border-[#fff] hover:bg-[#D4AF37]/20"
               >
                 <span className="relative z-10 font-serif text-base md:text-lg text-[#D4AF37] tracking-[0.1em] group-hover:text-white transition-colors whitespace-nowrap">
-                  上传照片
+                  Tải ảnh lên
                 </span>
               </button>
             )}
